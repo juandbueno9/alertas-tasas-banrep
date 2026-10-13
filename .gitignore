@@ -1,0 +1,9 @@
+# Configuración real (credenciales): usa config_ejemplo.py como plantilla
+config.py
+config_servidor.py
+venv/
+__pycache__/
+*.pyc
+*.pdf
+logs/
+.DS_Store
