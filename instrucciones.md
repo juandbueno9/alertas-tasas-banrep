@@ -3,7 +3,7 @@
 Este pequeño proyecto consulta la página del Banco de la República (SUAMECA)
 todos los días, saca la tasa DTF (se actualiza semanal) y la tasa IBR (se
 actualiza diaria), y te manda un correo a ti y a quien más agregues,
-recordando actualizar el core. El ingreso a el core lo sigues haciendo tú
+recordando actualizar el core. El ingreso al core lo sigues haciendo tú
 manualmente por ahora — este script no toca el core.
 
 ## Por qué se corre en tu computador y no "en la nube"
@@ -34,7 +34,7 @@ python -m playwright install chromium
 Esto instala: Playwright (un navegador Chrome "sin cabeza" que el script usa
 para leer la página tal como la vería una persona, necesario porque el
 Banrep carga los datos con JavaScript), `ibm_db` (el driver oficial de Db2
-para Python, que se usa para consultar la base de datos de el core y comparar
+para Python, que se usa para consultar la base de datos del core y comparar
 el valor contra lo ya cargado) y `reportlab` (arma el PDF de resumen que se
 adjunta al correo).
 
@@ -63,7 +63,7 @@ Abre `config.py` y llena:
 - `DESTINATARIOS`: la lista de correos que deben recibir el aviso todos los
   días.
 - `DB2_HOST` / `DB2_PORT` / `DB2_DATABASE` / `DB2_USER` / `DB2_PASSWORD`:
-  datos de conexión a la base de datos de el core, para comparar el valor de
+  datos de conexión a la base de datos del core, para comparar el valor de
   Banrep contra lo que ya está cargado. Usa el usuario `readonly` (o uno
   de solo consulta) — nunca un usuario de escritura/admin. Llena la
   contraseña directamente aquí en tu Mac, no la compartas por chat.

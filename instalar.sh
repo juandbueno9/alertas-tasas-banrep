@@ -45,12 +45,12 @@ mkdir -p capturas
 chmod 600 config.py
 
 echo ""
-echo "==> Prueba de consulta (sin enviar correo): Banrep + base de datos el core"
+echo "==> Prueba de consulta (sin enviar correo): Banrep + base de datos del core"
 if TZ=America/Bogota timeout 300 ./venv/bin/python consultar_tasas.py --solo-ver; then
   echo "==> Prueba OK."
 else
   echo "==> AVISO: la prueba falló. Revisa el mensaje de arriba (¿Banrep bloquea"
-  echo "    la IP del servidor? ¿el servidor llega a la base de datos el core?)."
+  echo "    la IP del servidor? ¿el servidor llega a la base de datos del core?)."
   echo "    El cron igual se programa, pero no sirve hasta que la prueba pase."
 fi
 

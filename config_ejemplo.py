@@ -40,7 +40,7 @@ AZURE_REMITENTE = "alertas@empresa.com"
 EXCEL_RUTA = ""
 
 # Nombre que verán los destinatarios como remitente
-REMITENTE_NOMBRE = "Automatización Tasas la empresa"
+REMITENTE_NOMBRE = "Automatización de Tasas"
 
 # --- Destinatarios: agrega aquí todos los correos que deben recibir el aviso ---
 DESTINATARIOS = [
@@ -49,12 +49,12 @@ DESTINATARIOS = [
     # "usuario@empresa.com",
 ]
 
-# --- URLs fuente (tomadas del documento de el core) ---
+# --- URLs fuente (tomadas del documento del core) ---
 URL_DTF = "https://suameca.banrep.gov.co/indicadores-economicos-del-dia/"
 URL_IBR = "https://suameca.banrep.gov.co/estadisticas-economicas/informacionSerie/241/tasas_interes_indicador_bancario_referencia_ibr"
 
 # -----------------------------------------------------------------------
-# Base de datos el core (Db2) - SOLO LECTURA, para comparar el valor de Banrep
+# Base de datos del core (Db2) - SOLO LECTURA, para comparar el valor de Banrep
 # contra lo que ya está cargado en el core y decir si toca actualizar.
 #
 # IMPORTANTE DE SEGURIDAD:

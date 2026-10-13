@@ -306,7 +306,7 @@ def _a_fecha(valor):
 
 
 def consultar_core_actual():
-    """Consulta en la base de datos de el core (Db2, SOLO LECTURA con el usuario
+    """Consulta en la base de datos del core (Db2, SOLO LECTURA con el usuario
     'readonly') cuál es el valor actualmente cargado (la fila abierta, sin
     FECHA_FINAL) para cada tasa que nos interesa, junto con la fecha desde la
     que quedó activa esa fila (FECHA_INICIO) — esto permite además avisar si
@@ -318,7 +318,7 @@ def consultar_core_actual():
         import ibm_db
     except ImportError:
         print("[AVISO] No tengo instalado 'ibm_db' (pip install ibm_db) — no puedo comparar "
-              "contra la base de datos de el core; el correo solo tendrá los valores de Banrep.")
+              "contra la base de datos del core; el correo solo tendrá los valores de Banrep.")
         return valores_core
 
     # Chequeo rápido de red (10 s) ANTES de usar el driver de Db2, que si no
@@ -328,7 +328,7 @@ def consultar_core_actual():
     try:
         socket.create_connection((config.DB2_HOST, int(config.DB2_PORT)), timeout=10).close()
     except OSError as e:
-        print(f"[AVISO] No llego a la base de datos de el core ({config.DB2_HOST}:{config.DB2_PORT}) "
+        print(f"[AVISO] No llego a la base de datos del core ({config.DB2_HOST}:{config.DB2_PORT}) "
               f"en 10 segundos: {e}\n"
               f"    (revisa DB2_HOST/DB2_PORT en config.py, el firewall o la VPN). "
               f"El correo sigue, solo sin la comparación contra el core.")
@@ -341,7 +341,7 @@ def consultar_core_actual():
     try:
         conexion = ibm_db.connect(cadena_conexion, "", "")
     except Exception as e:
-        print(f"[AVISO] No pude conectarme a la base de datos de el core: {e}\n"
+        print(f"[AVISO] No pude conectarme a la base de datos del core: {e}\n"
               f"    (revisa si necesitas estar conectado a la VPN/red de la empresa, "
               f"o si la contraseña en config.py está bien).")
         return valores_core
@@ -399,7 +399,7 @@ def comparar(nombre, valor_banrep, valores_core, fecha_esperada=None):
         else:
             estado_fecha = f"cargada el {fecha_core}"
     else:
-        estado_fecha = "(sin fecha de el core disponible)"
+        estado_fecha = "(sin fecha del core disponible)"
 
     return f"    - {nombre}: Banrep {valor_banrep}% | el core actual {valor_core}% [{estado_fecha}] -> {veredicto}"
 
@@ -449,7 +449,7 @@ def generar_pdf_resumen(dtf_valores, clave_oficial_dtf, ibr_valores, valores_cor
     story = [Paragraph(f"Tasas DTF / IBR &mdash; {hoy}", styles["Titulo"])]
     story.append(Paragraph(
         "La columna \"¿Cargar hoy en el core?\" te dice, para cada tasa, si toca hacer una carga "
-        "nueva hoy en Sistemas Cruzados &gt; Configuración &gt; Tasas Bases. La <b>DTF</b> es "
+        "nueva hoy en el proveedor del core &gt; Configuración &gt; Tasas Bases. La <b>DTF</b> es "
         "<b>semanal</b> (solo cuando Banrep publica un valor distinto al ya cargado); el "
         "<b>IBR</b> es <b>diario</b> (se agrega una fila todos los días hábiles, cambie o no el valor).",
         styles["Subtitulo"],
@@ -466,7 +466,7 @@ def generar_pdf_resumen(dtf_valores, clave_oficial_dtf, ibr_valores, valores_cor
                 Paragraph(f"{valor_banrep}%", styles["Celda"]),
                 Paragraph("sin dato", styles["Celda"]),
                 Paragraph("sin dato", styles["Celda"]),
-                Paragraph("No se pudo verificar (sin acceso a el core).", styles["AccionAlerta"]),
+                Paragraph("No se pudo verificar (sin acceso al core).", styles["AccionAlerta"]),
             ]
             return celdas, "sin_dato"
 
@@ -539,7 +539,7 @@ def generar_pdf_resumen(dtf_valores, clave_oficial_dtf, ibr_valores, valores_cor
     story.append(Spacer(1, 10))
     story.append(Paragraph(
         "\"Activo en el core\" es la última fila cargada (sin fecha de cierre). Ruta para cargar: "
-        "Sistemas Cruzados &gt; Configuración &gt; Tasas Bases &gt; icono nuevo.",
+        "el proveedor del core &gt; Configuración &gt; Tasas Bases &gt; icono nuevo.",
         styles["Celda"],
     ))
     doc.build(story)
@@ -744,7 +744,7 @@ def _html_correo(hoy_fecha, dtf_valores, ibr_valores, fecha_ibr, valores_core, f
 </td></tr>
 <tr><td style="padding:20px 26px 0 26px;">
   <div style="padding:12px 14px;background:#EEF4FA;border-radius:6px;font-size:13px;line-height:1.5;">
-    <b>Dónde cargar:</b> SISTEMAS CRUZADOS &gt; CONFIGURACIÓN &gt; TASA BASES &gt; icono nuevo.<br>
+    <b>Dónde cargar:</b> ADMINISTRACIÓN &gt; CONFIGURACIÓN &gt; TASAS BASE &gt; icono nuevo.<br>
     <b>Qué se carga:</b> DTF efectiva anual (cada semana) e IBR 1, 3 y 6 meses (todos los días hábiles).
   </div>
 </td></tr>
@@ -767,7 +767,7 @@ def _html_error(hoy_fecha, detalle_error):
   </div>
   <p style="font-size:13px;">DTF: <a href="{e(config.URL_DTF)}">{e(config.URL_DTF)}</a><br>
   IBR: <a href="{e(config.URL_IBR)}">{e(config.URL_IBR)}</a><br>
-  Ruta en el core: SISTEMAS CRUZADOS &gt; CONFIGURACIÓN &gt; TASA BASES.</p>
+  Ruta en el core: ADMINISTRACIÓN &gt; CONFIGURACIÓN &gt; TASAS BASE.</p>
   <p style="font-size:11px;color:#8A9396;margin-bottom:4px;">Detalle técnico:</p>
   <pre style="font-size:11px;color:#555;background:#F6F7F8;padding:10px;border-radius:6px;white-space:pre-wrap;">{e(detalle_error or '')}</pre>
 </div></body></html>"""
@@ -790,7 +790,7 @@ def construir_correo(dtf_valores, ibr_valores, fecha_ibr, valores_core, captura_
             f"Por favor consulta manualmente en:\n"
             f"- DTF: {config.URL_DTF}\n"
             f"- IBR: {config.URL_IBR}\n\n"
-            f"y actualiza el core (SISTEMAS CRUZADOS >> CONFIGURACION >> TASA BASES)."
+            f"y actualiza el core (ADMINISTRACION >> CONFIGURACION >> TASAS BASE)."
         )
     else:
         # Confirmado por la empresa (13-ago-2026): la variante oficial que se
@@ -877,7 +877,7 @@ def construir_correo(dtf_valores, ibr_valores, fecha_ibr, valores_core, captura_
             f"{bloque_comparacion}\n\n"
             f"Recuerda actualizar en el core SOLO: DTF efectiva anual (semanal) e IBR 1 mes / "
             f"3 meses / 6 meses (todos los días hábiles).\n"
-            f"Ruta: SISTEMAS CRUZADOS >> CONFIGURACION >> TASA BASES >> icono nuevo\n\n"
+            f"Ruta: ADMINISTRACION >> CONFIGURACION >> TASAS BASE >> icono nuevo\n\n"
             f"Se adjuntan capturas de pantalla de la página de origen y un PDF con el resumen "
             f"del día, para verificación visual.\n\n"
             f"Fuentes:\n- DTF: {config.URL_DTF}\n- IBR: {config.URL_IBR}"
@@ -1113,7 +1113,7 @@ def main():
         print(detalle_error)
 
     fecha_esperada = dia_habil_anterior(datetime.now().date())
-    print("\nConsultando valor actual en la base de datos de el core (CORE.TASA_BASE)...")
+    print("\nConsultando valor actual en la base de datos del core (CORE.TASA_BASE)...")
     valores_core = consultar_core_actual()
     if valores_core:
         print("  -> Valores actuales en el core:")
@@ -1130,7 +1130,7 @@ def main():
                 print(comparar(etq, ibr_valores[etq], valores_core,
                                 fecha_esperada_para(etq, fecha_esperada)))
     else:
-        print("  -> No se pudo consultar la base de datos de el core (ver aviso arriba). "
+        print("  -> No se pudo consultar la base de datos del core (ver aviso arriba). "
               "El correo se enviará solo con los valores de Banrep, sin comparación.")
 
     if not hubo_error and not prueba:

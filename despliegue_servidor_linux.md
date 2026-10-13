@@ -15,7 +15,7 @@ sistemas que confirme que el firewall lo permite:
   IBR.
 - `login.microsoftonline.com` y `graph.microsoft.com` (HTTPS, puerto 443) —
   para enviar el correo con Microsoft Graph.
-- `10.0.0.10` puerto `25000` (Db2/TCPIP) — la base de datos de el core. Si el
+- `10.0.0.10` puerto `25000` (Db2/TCPIP) — la base de datos del core. Si el
   servidor ya está en la red interna de la empresa, esto probablemente ya
   funciona (es la misma base a la que llega tu Mac); si es un servidor
   nuevo, hay que confirmarlo.
